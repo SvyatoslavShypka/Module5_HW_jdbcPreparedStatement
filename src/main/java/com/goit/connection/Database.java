@@ -27,17 +27,16 @@ public class Database {
     }
 
     public int executeUpdate(String sql) {
-        try (Statement st = connection.createStatement()) {
-            return st.executeUpdate(sql);
+        try (PreparedStatement queryStatement = connection.prepareStatement(sql)) {
+            return queryStatement.executeUpdate();
         } catch (SQLException e) {
             throw new DatabaseException("Sql execute failed" , e);
         }
     }
 
     public ResultSet executeQuery(String sql) {
-        try {
-            Statement st = connection.createStatement();
-            return st.executeQuery(sql);
+        try {PreparedStatement queryStatement = connection.prepareStatement(sql);
+            return queryStatement.executeQuery();
         } catch (SQLException e) {
             throw new DatabaseException("Sql execute failed" , e);
         }
